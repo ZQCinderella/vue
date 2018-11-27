@@ -1,8 +1,8 @@
-#vue
+# vue
 
 ## Build Setup
 
-```
+``` bash
 # 安装依赖项
 npm install
 
