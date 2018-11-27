@@ -1,5 +1,6 @@
 import Vue from 'vue'
-import store from '@/store'
+import store from './store/index.js'
+import 'babel-polyfill'
 import App from '@/components/index.vue'
 
 new Vue({

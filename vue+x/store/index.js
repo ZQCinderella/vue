@@ -7,10 +7,10 @@ const state = {
 }
 const mutations = {
   increment (state, val) {
-    state.count= val
+    state.count += val
   },
   decrement (state, val) {
-    state.count = val
+    state.count -= val
   }
 }
 const actions = {
