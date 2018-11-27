@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
   entry: {
     vender: ['vue', 'vuex'],
-    app: path.resolve(__dirname, 'app.js')
+    app: ['babel-polyfill', path.resolve(__dirname, 'app.js')]
   },
   output: {
     path: path.resolve(__dirname, 'public'),   // 线上可以更换目录
@@ -17,7 +17,7 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.html$/, use: ['file-loader'] },
+      // { test: /\.html$/, use: ['file-loader'] },    //使用该loader会修改html的内容
       { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] },
       { test: /\.vue$/, use: ['vue-loader'] },
       { test: /\.css$/, use: ['vue-style-loader', 'css-loader'] }
@@ -26,7 +26,7 @@ module.exports = {
   resolve: {
     extensions: ['.vue', '.js', '.json', '.css', '.scss'],
     alias: {
-      '@': path.resolve('./')
+      '@': path.resolve('.')
     }
   },
   optimization: {
@@ -46,7 +46,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(__dirname, 'public', 'index.html'),
-      // chunks: ['app', 'vender'],
+      chunks: ['app', 'vender'],
       // inject: 'body'
     })
   ]

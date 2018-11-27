@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cross-env NODE_ENV=production webpack --progress --colors --config webpack.config.js",
-    "start": "cross-env NODE_ENV=development webpack-dev-server --progress --colors --hot --inline"
+    "build": "cross-env NODE_ENV=production webpack --progress --colors --config webpack.config.prod.js",
+    "start": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.config.dev.js --progress --colors --hot --inline"
   },
   "author": "fet",
   "license": "ISC",
@@ -29,7 +29,8 @@
     "webpack": "^4.26.1",
     "webpack-dev-middleware": "^3.4.0",
     "webpack-dev-server": "^3.1.10",
-    "webpack-hot-middleware": "^2.24.3"
+    "webpack-hot-middleware": "^2.24.3",
+    "webpack-merge": "^4.1.4"
   },
   "devDependencies": {
     "webpack-cli": "^3.1.2"
