@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="peo in object">
+        <!-- 默认通过属性迭代，第一个参数是value，第二个是key, 第三个参数为索引 -->
+        {{ peo }}
+      </li>
+      <li v-for="(value, key, index) in object">
+        {{ index + 1}}. {{ key }}: {{ value }}
+      </li>
+      <!-- 遍历数组时，为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一 key 属性。 -->
+    </ul>
+
+    <!-- 数组更新检测 -->
+    <ul>
+      <li v-for="item of arr">
+        {{ item }}
+      </li>
+    </ul>
+    排序后的数组: {{ enhanceArr }}
+    <div v-for="item of originArr" v-if="item %2 !== 0">
+      v-for搭配v-if的结果: {{item}}
+    </div>
+
+
+    <!-- 对组件使用v-for -->
+    <div>
+      <form v-on:submit.prevent="addTodo">
+        <label for="">add a todos</label>
+        <input type="text" v-model="newTodoText" />
+        <button>add</button>
+      </form>
+      todolist:
+      <ul>
+        <li is="todo-item" v-for="(item, index) of todoList" v-bind:title="item.title" v-bind:key="item.key"
+          v-on:remove="removeItem(index)"></li>
+      </ul>
+    </div>
+
+    <button @click="testParams(3, $event)">testParams</button>
+    <button @click.meta="clickMeta">clickMeta</button>
+
+    <card @focus.native="nativeClick" v-model="model" :label="model">nativeClick</card>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+<script>
+  Vue.component('todo-item', {
+    template: '\
+    <li>\
+      {{ title}}\
+      <button v-on:click="$emit(\'remove\')">remove</button>\
+    </li>',
+    props: ['title', 'index', 'remove']
+  })
+  Vue.component('card', {
+    inheritAttrs: false,
+    props: ['label', 'value'],
+    data: function () {
+      return {
+        model: ''
+      }
+    },
+    computed: {
+      inputListeners: function () {
+        var vm = this;
+        //$listeners 属性，配合 v-on="$listeners" 将所有的事件监听器指向这个组件的某个特定的子元素。这里指向input
+        return Object.assign({}, this.$listeners, {
+          //确保配合v-model工作, 即，组件如果想使用v-model，则需要实现input元素的input事件
+          input: function (event) {
+            vm.$emit('input', event.target.value);
+          }
+        });
+      }
+    },
+    // <solt></solt>插槽, 可以是文本，html，组件等，如果组件需要content， 则必须使用插槽，否则组件内部的全部都会丢弃如<card>content</card>
+    template: `<label>
+      {{ label }}
+      <input
+        v-bind="$attrs"
+        v-bind:value="value"
+        v-on="inputListeners"
+        >
+        <slot></slot>
+    </label>`
+  })
+  var app = new Vue({
+    el: "#app",
+    data: {
+      model: '',
+      object: {
+        age: 10,
+        name: 'fethunter'
+      },
+      arr: [1, 2, 3, 4, 5],
+      originArr: [3, 1, 2, 4, 6, 7, 8],
+      todoList: [{
+        id: 1,
+        title: 'Do the dishes',
+      },
+      {
+        id: 2,
+        title: 'Take out the trash',
+      },
+      {
+        id: 3,
+        title: 'Mow the lawn'
+      }],
+      newTodoText: '',
+      nextTodoId: 4
+    },
+    created() {
+      setTimeout(() => {
+        // this.arr = ['a', 'b', 'c', 'd'];
+        this.arr[1] = 'a';   //不生效
+        this.arr.splice(1, 1, 'a');   //生效， 因为splice时变异操作
+        Vue.set(this.arr, 1, 'aa'); //生效，使用vue的全局方法
+        this.$set(this.arr, 1, 'aaa');  //生效, 使用实例方法
+        this.object.name = 'fet';   //生效
+        this.object.gender = 'man';
+      }, 1000);
+    },
+    computed: {
+      enhanceArr: function () {
+        //return this.originArr.sort(function (a, b) { return a - b });
+        return this.originArr.filter((item) => {
+          return item % 2 === 0;
+        });
+      }
+    },
+    methods: {
+      //在click事件中，this只想vue实例
+      addTodo: function () {
+        this.todoList.push({
+          title: this.newTodoText,
+          id: this.nextTodoId++
+        });
+      },
+      removeItem: function (index) {
+        this.todoList.splice(index, 1);
+      },
+      testParams: function (index, event) {
+        console.log(index, event);
+      },
+      clickMeta: function () {
+        console.log('you click when you press the key meta');
+      },
+      nativeClick: function (e) {
+        console.log('nativeClick', e);
+      }
+    }
+  })
+  //vue数组操作会引起视图变化的有  push, shift, pop, unshift ,reverse, sort, splice
+  //不会引起视图变化的有 concat, slice, filter, 因为这些操作不回改变原数组，而是返回一个新的数组
+  //当使用非变异数组方法时，可以将返回的结果赋值给原来的数组。
+
+  //arr[index] = 2; arr.length = 3; 这种操作不会引起变异
+
+
+  //Vue 不能动态添加或者删除根级别的响应式属性。 需要使用set(obj, key, value), 或者obj = Object({}, obj, obj1);
+
+  //显示过滤和排序结果  --- 这种想要不改变原数组，但是想得到一个排序结果时， 可以使用计算属性
+
+  //某些情况下，也可以利用v-if实现一些过滤
+
+
+  //v-for也可以在组件上使用，通常我们不把迭代的值自动注入到组件中，因为组件有自己的独立作用域，所以我们要使用props， 而且避免自动注入可以实现解耦
+
+</script>
+
+</html>

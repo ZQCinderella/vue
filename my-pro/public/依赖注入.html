@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  
+</style>
+
+<body>
+  <div id="app">
+    <parent-com></parent-com>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+<script>
+  var sonCom = Vue.component('son-com', {
+    inject: ['getOutput'],
+    data: function () {
+      return {
+        injectData: this.getOutput()
+      }
+    },
+    template: '<div>{{ injectData }}</div>'
+  })
+  // 依赖注入, 需要注意的是provide 和 inject 主要为高阶插件/组件库提供用例。并不推荐直接用于应用程序代码中。
+  Vue.component('parent-com', {
+    methods: {
+      output: function () {
+        return 5;
+      }
+    },
+    components: {
+      sonCom
+    },
+    provide: function () {
+      // 父元素通过provider提供子组件可访问的方法或属性
+      return {
+        getOutput: this.output
+      }
+    },
+    template: `<son-com></son-com>`
+  })
+  
+  new Vue({
+    el: '#app'
+  })
+</script>
+
+</html>
