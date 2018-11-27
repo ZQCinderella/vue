@@ -5,7 +5,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-  mode: 'development',
   entry: {
     vender: ['vue', 'vuex'],
     app: path.resolve(__dirname, 'app.js')
@@ -16,20 +15,9 @@ module.exports = {
     chunkFilename: '[id].chunk.js',
     publicPath: '/'
   },
-  devServer: {
-    inline: true,
-    compress: true,
-    contentBase: path.resolve(__dirname, 'public'),  // webpack服务器的根目录，生成的js会保存在内存中
-    hot: true,
-    port: 8888,
-    host: '127.0.0.1',
-    disableHostCheck: true,
-    publicPath: '/',   // 即 当访问 / 时， 会自动定位到contentBase
-    historyApiFallback: {}
-  },
   module: {
     rules: [
-      // { test: /\.html$/, use: ['file-loader'] },
+      { test: /\.html$/, use: ['file-loader'] },
       { test: /\.js$/, exclude: /node_modules/, use: ['babel-loader'] },
       { test: /\.vue$/, use: ['vue-loader'] },
       { test: /\.css$/, use: ['vue-style-loader', 'css-loader'] }
@@ -54,7 +42,6 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new HtmlWebpackPlugin({
       filename: 'index.html',
