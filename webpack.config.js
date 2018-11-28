@@ -3,10 +3,11 @@ const path = require('path')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const envFlag = process.env.NODE_ENV === 'production' ? true : false;
+const envFlag = process.env.NODE_ENV === 'production';
 module.exports = {
   entry: {
     vendor: ['vue', 'vuex', 'vue-router'],
+    main: path.resolve(__dirname, 'main.js'),
     app: ['babel-polyfill', path.resolve(__dirname, 'app.js')]
   },
   output: {
@@ -106,7 +107,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(__dirname, 'public', 'index.html'),
-      chunks: ['app', 'vendor'],    //这个chunks要和entry中的相同
+      chunks: ['app', 'main', 'vendor'],    //这个chunks要和entry中的相同
       // inject: 'body'
     }),
     //webpack4在使用eslint时，会报错Module build failed (from ./node_modules/eslint-loader/index.js):
