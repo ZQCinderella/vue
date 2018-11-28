@@ -10,6 +10,7 @@ module.exports = merge(baseConfig, {
     chunkFilename: '[id].chunk.js',
     publicPath: '/'
   },
+  // 使用webpack自带的dev-server,   或者使用express+webpack
   devServer: {
     inline: true,
     compress: true,
