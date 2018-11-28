@@ -20,5 +20,5 @@ module.exports = merge(baseConfig, {
     disableHostCheck: true,
     publicPath: '/',   // 即 当访问 / 时， 会自动定位到contentBase
     historyApiFallback: {}
-  }
+  },
 })

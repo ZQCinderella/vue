@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "cross-env NODE_ENV=production webpack --progress --colors --config webpack.config.prod.js",
-    "start": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.config.dev.js --progress --colors --hot --inline"
+    "start": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.config.dev.js --progress --colors --hot --inline",
+    "lint": "eslint --ext .js --ext .jsx --ext .vue client/",
+    "lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue client"
   },
   "author": "fet",
   "license": "ISC",
@@ -38,6 +40,16 @@
     "webpack-merge": "^4.1.4"
   },
   "devDependencies": {
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "babel-eslint": "^7.1.1",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-html": "^3.0.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.2.0",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }

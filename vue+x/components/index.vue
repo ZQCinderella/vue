@@ -7,9 +7,9 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters } from 'vuex'
 export default {
-  name: "app",
+  name: 'app',
   computed: {
     ...mapState({
       count: state => state.count
@@ -24,7 +24,7 @@ export default {
       }
     }
   }
-};
+}
 </script>
 
 

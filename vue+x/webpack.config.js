@@ -48,6 +48,17 @@ module.exports = {
       template: path.join(__dirname, 'public', 'index.html'),
       chunks: ['app', 'vender'],
       // inject: 'body'
-    })
+    }),
+    //webpack4在使用eslint时，会报错Module build failed (from ./node_modules/eslint-loader/index.js):
+    // 需要使用该插件，让loader在__dirname下去寻找module
+    new webpack.LoaderOptionsPlugin(
+      {
+        minimize: true,
+        debug: false,
+        options: {
+          context: __dirname
+        }
+      }
+    )
   ]
 }
