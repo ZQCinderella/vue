@@ -107,7 +107,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.join(__dirname, 'public', 'index.html'),
-      chunks: ['app', 'main', 'vendor'],    //这个chunks要和entry中的相同
+      chunks: ['app', 'vendor'],    //这个chunks要和entry中的相同
+      // inject: 'body'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'test.html',
+      template: path.join(__dirname, 'public', 'test.html'),
+      chunks: ['main'],    //这个chunks要和entry中的相同
       // inject: 'body'
     }),
     //webpack4在使用eslint时，会报错Module build failed (from ./node_modules/eslint-loader/index.js):
