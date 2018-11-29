@@ -7,8 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rimraf ./dist",
     "prebuild": "npm run clean",
-    "dev": "node ./examples/server.js",
-    "build": "cross-env NODE_ENV=production webpack --progress --colors --config webpack.config.prod.js",
+    "build": "cross-env NODE_ENV=production node ./examples/server.js",
+    "dev": "cross-env NODE_ENV=development node ./examples/server.js",
     "start": "cross-env NODE_ENV=development webpack-dev-server  --config webpack.config.dev.js --progress --colors --hot --inline"
   },
   "author": "fet",

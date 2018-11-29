@@ -3,18 +3,42 @@ const path = require('path')
 const webpack = require('webpack')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const envFlag = process.env.NODE_ENV === 'production';
+const envFlag = process.env.NODE_ENV === 'production'
+const html = [];
+const ens = fs.readdirSync(__dirname).reduce((entries, dir) => {
+  const fullDir = path.join(__dirname, dir)
+  if (fs.statSync(fullDir).isDirectory) {
+    const entry = path.join(fullDir, 'app.js')
+    if (fs.existsSync(entry)) {
+      entries[dir] = ['babel-polyfill', 'webpack-hot-middleware/client', entry]  //热部署
+      html.push({
+        template: path.join(fullDir, 'index.html'),
+        chunks: [dir, 'vendor']
+      })
+    }
+  }
+  return entries
+}, {})
+
+const htmlPlugins = html.map((item, i) => {
+  return new HtmlWebpackPlugin({
+    filename: 'index.html',
+    template: item.template,
+    chunks: item.chunks,    //这个chunks要和entry中的相同
+    // inject: 'body'
+  })
+})
+
 module.exports = {
   entry: {
-    vendor: ['vue', 'vuex', 'vue-router'],
-    main: path.resolve(__dirname, 'main.js'),
-    app: ['babel-polyfill', path.resolve(__dirname, 'app.js')]
+    ...ens,
+    vendor: ['vue', 'vuex', 'vue-router']
   },
   output: {
-    path: path.resolve(__dirname, 'public'),   // 线上可以更换目录
+    path: path.resolve(__dirname, 'dist'),   // 线上可以更换目录
     filename: '[name].js',
     chunkFilename: '[id].chunk.js',
-    publicPath: './'
+    publicPath: '/dist/'
   },
   module: {
     rules: [
@@ -30,19 +54,19 @@ module.exports = {
             extract: envFlag,
             sourceMap: envFlag
           }
-        },{
-          loader: 'postcss-loader',
-          options: {
-            sourceMap: envFlag
-          }
-        },
-        {
-          loader: 'sass-loader',   // 将 sass/scss文件转位css
-          options: {
-            // indentedSyntax: true,
-            sourceMap: envFlag
-          }
-        }]
+        }, {
+            loader: 'postcss-loader',
+            options: {
+              sourceMap: envFlag
+            }
+          },
+          {
+            loader: 'sass-loader',   // 将 sass/scss文件转位css
+            options: {
+              // indentedSyntax: true,
+              sourceMap: envFlag
+            }
+          }]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -104,12 +128,12 @@ module.exports = {
   plugins: [
     new VueLoaderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: path.join(__dirname, 'public', 'index.html'),
-      chunks: ['app', 'main', 'vendor'],    //这个chunks要和entry中的相同
-      // inject: 'body'
-    }),
+    // new HtmlWebpackPlugin({
+    //   filename: 'index.html',
+    //   template: path.join(__dirname, 'public', 'index.html'),
+    //   chunks: ['app', 'main', 'vendor'],    //这个chunks要和entry中的相同
+    //   // inject: 'body'
+    // }),
     //webpack4在使用eslint时，会报错Module build failed (from ./node_modules/eslint-loader/index.js):
     // 需要使用该插件，让loader在__dirname下去寻找module
     new webpack.LoaderOptionsPlugin(
@@ -121,5 +145,5 @@ module.exports = {
         }
       }
     )
-  ]
+  ].concat(htmlPlugins)
 }
