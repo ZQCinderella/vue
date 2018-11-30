@@ -4,7 +4,10 @@ import Router from 'vue-router'
 import store from './store/index.js'
 import 'babel-polyfill'
 import App from './components/index.vue'
-console.log('test app.js')
+import _ from 'lodash'
+
+const test_val = 'test app.js'
+console.log(test_val)
 new Vue({
   el: '#app',
   store,

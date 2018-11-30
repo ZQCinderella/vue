@@ -5,6 +5,7 @@ const webpack = require('webpack')
 
 module.exports = merge(baseConfig, {
   mode: 'development',
+  devtool: '#cheap-module-eval-source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),   // 线上可以更换目录
     filename: '[name].js',

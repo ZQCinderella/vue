@@ -12,8 +12,9 @@ const ens = fs.readdirSync(__dirname).reduce((entries, dir) => {
     if (fs.existsSync(entry)) {
       entries[dir] = ['babel-polyfill', 'webpack-hot-middleware/client', entry]  //热部署
       html.push({
+        filename: `${dir}.html`,
         template: path.join(fullDir, 'index.html'),
-        chunks: [dir, 'vendor']
+        chunks: [dir]
       })
     }
   }
@@ -22,17 +23,17 @@ const ens = fs.readdirSync(__dirname).reduce((entries, dir) => {
 
 const htmlPlugins = html.map((item, i) => {
   return new HtmlWebpackPlugin({
-    filename: 'index.html',
+    filename: item.filename,
     template: item.template,
     chunks: item.chunks,    //这个chunks要和entry中的相同
-    // inject: 'body'
+    inject: false
   })
 })
 
 module.exports = {
   entry: {
     ...ens,
-    vendor: ['vue', 'vuex', 'vue-router']
+    vendor: ['vue', 'vuex', 'vue-router', 'lodash']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),   // 线上可以更换目录
@@ -101,7 +102,7 @@ module.exports = {
     }
   },
   optimization: {
-    // minimize: true,  //生产环境默认的是true, 所以会压缩js
+    minimize: false,  //生产环境默认的是true, 所以会压缩js
     /* minimizer属性允许你覆盖默认的minimize， 使用自己配置的压缩方式
     minimizer: [
       new webpack.optimize.UglifyJsPlugin({
@@ -116,11 +117,12 @@ module.exports = {
     ]*/
     splitChunks: {
       cacheGroups: {
-        vendors: {
-          name: 'vendor',
+        vendor: {
+          name: 'vendor',    // entry中需要split的代码, 提起css时， css的[name],就是这个
           // reuseExistingChunk: true,
           filename: 'vendor.js',
-          chunks: 'initial'
+          chunks: 'initial',
+          // minChunks: 3
         }
       }
     }
@@ -139,11 +141,15 @@ module.exports = {
     new webpack.LoaderOptionsPlugin(
       {
         // minimize: true,    //是否压缩loader提取的内容
-        debug: false,
+        debug: true,
         options: {
           context: __dirname
         }
       }
     )
-  ].concat(htmlPlugins)
+  ].concat(htmlPlugins),
+  performance: {
+    // hints: envFlag ? false : 'warning', // 如果超过最大体积，是否提示warning
+    maxAssetSize: 1000000   // 1M
+  }
 }

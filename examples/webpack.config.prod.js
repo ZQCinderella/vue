@@ -14,7 +14,7 @@ module.exports = merge(baseConfig, {
   mode: 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),   // 线上可以更换目录
-    filename: 'main.[chunkhash:8].js',
+    filename: '[name].[chunkhash:8].js',
     chunkFilename: '[id].[chunkhash:8].js',
     publicPath: '/dist/'
   },
@@ -66,7 +66,7 @@ module.exports = merge(baseConfig, {
     ]
   }, 
   plugins: [
-    //extractCSS,
+    extractCSS
     // new HtmlWebpackPlugin({
     //   filename: 'index.html',
     //   template: path.join(__dirname, 'public', 'index.html'),

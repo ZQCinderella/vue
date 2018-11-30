@@ -5,24 +5,27 @@ const webpackHotMiddleware = require('webpack-hot-middleware')
 
 console.log(process.env.NODE_ENV)
 const webpackConfig = process.env.NODE_ENV === 'development' ?
-  require('./webpack.config.dev.js') : 
+  require('./webpack.config.dev.js') :
   require('./webpack.config.prod.js')
 
 const app = express();
 
 const compiler = webpack(webpackConfig)
 
-if (process.env.NODE_ENV === 'development') {
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: '/dist/',
-    stats: {
-      colors: true,
-      chunks: false
-    }
-  }))
+// if (process.env.NODE_ENV === 'development') {
   
-  app.use(webpackHotMiddleware(compiler))
-}
+// }
+app.use(webpackDevMiddleware(compiler, {
+  publicPath: '/dist/',
+  host: 'localhost',
+  hot: true,
+  stats: {
+    colors: true,
+    chunks: false
+  }
+}))
+
+app.use(webpackHotMiddleware(compiler))
 app.use(express.static(__dirname))
 
 const port = process.env.PORT || 8088
