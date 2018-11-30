@@ -58,20 +58,20 @@ const store = new Vuex.Store({
   actions
 })
 
-//store的热部署只能这样写
-// if (module.hot) {
-//   module.hot.accept([
-//     './getters',
-//     './actions',
-//     './mutations'
-//   ], function() {
-//     // Do something with the updated library module...
-//     store.hotUpdate({
-//       getters: require('./getters'),
-//       actions: require('./actions'),
-//       mutations: require('./mutations')
-//     })
-//   });
-// }
+//如果使用express+webpack, 则store的热部署只能这样写。 如果使用webpack-dev-server则不用
+if (module.hot) {
+  module.hot.accept([
+    './getters',
+    './actions',
+    './mutations'
+  ], function() {
+    // Do something with the updated library module...
+    store.hotUpdate({
+      getters: require('./getters'),
+      actions: require('./actions'),
+      mutations: require('./mutations')
+    })
+  });
+}
 
 export default store
