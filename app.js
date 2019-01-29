@@ -10,3 +10,8 @@ new Vue({
   store,
   render: h => h(App)
 })
+
+// 通过visibilityChange事件，控制页面内的内容播放和暂停
+
+
+
