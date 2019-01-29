@@ -70,10 +70,22 @@ export default {
           document.title = 'Playing'
         })
       }
+    },
+    createEventFn () {
+      // 测试自定义事件
+      let event = document.createEvent('Events')
+      event.initEvent('testCreateEvent')
+      document.dispatchEvent(event)
     }
   },
   mounted () {
     this.listenVisibility()
+    setTimeout(function () {
+      this.createEventFn()
+    }.bind(this), 2000)
+    document.addEventListener('testCreateEvent', function () {
+      alert('It\'s work')
+    })
   }
 }
 </script>
