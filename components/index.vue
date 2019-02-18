@@ -4,7 +4,9 @@
     <div>count: {{ count }}</div>
     <button @click="operBtn('add')">add</button>
     <button @click="operBtn('sub')">sub</button>
-    <div class="test-bg"></div>
+    <div class="test-bg" ref="testBg"></div>
+    <input v-focus placeholder="这是一个自动聚焦的input" v-model="demoMsg"/>
+    <div v-demo="demoMsg"></div>
     <upcase></upcase>
     <SecondsOfCode></SecondsOfCode>
     <audio :src="audioSrc" controls="controls" preload="load" id="audioDom"></audio>
@@ -20,6 +22,7 @@ export default {
   name: 'app',
   data () {
     return {
+      demoMsg: 'before',
       audioSrc
     }
   },
@@ -31,6 +34,19 @@ export default {
   components: { 
     upcase,
     SecondsOfCode
+  },
+  directives: {
+    focus: {
+      inserted: function (el) {
+        el.focus() 
+      }
+    },
+    demo: {
+      update: function (el, binding) {
+        console.log('demo', binding.value, binding.oldValue)
+        el.innerHTML = binding.value
+      }
+    }
   },
   methods: {
     operBtn (type) {
@@ -78,13 +94,19 @@ export default {
       document.dispatchEvent(event)
     }
   },
+  created() {
+    console.log('created', this.$refs.testBg)
+  },
   mounted () {
+    // render function执行好， mounted生命周期函数被调用，但是页面并没有展示出来还
+    console.log(this)
+    console.log(this.$refs.testBg)
     this.listenVisibility()
     setTimeout(function () {
       this.createEventFn()
     }.bind(this), 2000)
     document.addEventListener('testCreateEvent', function () {
-      alert('It\'s work')
+      console.log('It\'s work')
     })
   }
 }
