@@ -36,6 +36,7 @@ export default {
     SecondsOfCode
   },
   directives: {
+    // 添加局部指令的方式
     focus: {
       inserted: function (el) {
         el.focus() 
