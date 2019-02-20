@@ -26,6 +26,12 @@ export default {
       audioSrc
     }
   },
+  watch: {
+    'demoMsg': function (val, oldValue) {
+      // this.inputAction()
+      this.inputAction2()
+    }
+  },
   computed: {
     ...mapState({
       count: state => state.count
@@ -44,12 +50,36 @@ export default {
     },
     demo: {
       update: function (el, binding) {
-        console.log('demo', binding.value, binding.oldValue)
         el.innerHTML = binding.value
       }
     }
   },
   methods: {
+    sendRequest () {
+      console.log('我正在发信息')
+    },
+    // 去抖
+    requestDebounce (method, delay) {
+      let timer = null
+      return function () {
+        let context = this, args = arguments
+        clearTimeout(timer)
+        timer = setTimeout(function () {
+          method.call(context, args)
+        }, delay)
+      }
+    },
+    // 节流
+    requestThrottle (method, duration) {
+      let begin = new Date()
+      return function () {
+        let context = this, args = arguments, current = new Date()
+        if (current - begin >= duration) {
+          method.call(context, args)
+          begin = current
+        }
+      }
+    },
     operBtn (type) {
       if (type === 'add') {
         this.$store.dispatch('incre', 1)
@@ -93,15 +123,16 @@ export default {
       let event = document.createEvent('Events')
       event.initEvent('testCreateEvent')
       document.dispatchEvent(event)
-    }
+    },
+
   },
   created() {
+    this.inputAction = this.requestDebounce(this.sendRequest, 1000)
+    this.inputAction2 = this.requestThrottle(this.sendRequest, 1000)
     console.log('created', this.$refs.testBg)
   },
   mounted () {
     // render function执行好， mounted生命周期函数被调用，但是页面并没有展示出来还
-    console.log(this)
-    console.log(this.$refs.testBg)
     this.listenVisibility()
     setTimeout(function () {
       this.createEventFn()
