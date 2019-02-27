@@ -8,7 +8,8 @@
     <input v-focus placeholder="这是一个自动聚焦的input" v-model="demoMsg"/>
     <div v-demo="demoMsg"></div>
     <upcase></upcase>
-    <SecondsOfCode></SecondsOfCode>
+    <!-- <SecondsOfCode></SecondsOfCode> -->
+    <Algorithm></Algorithm>
     <audio :src="audioSrc" controls="controls" preload="load" id="audioDom"></audio>
   </div>
 </template>
@@ -17,6 +18,7 @@ import audioSrc from '../public/assets/yw.mp3'
 import { mapState, mapGetters } from 'vuex'
 import upcase from './upcase'
 import SecondsOfCode from './30SecondsOfCode'
+import Algorithm from './Algorithm'
 console.log('mp3', audioSrc)
 export default {
   name: 'app',
@@ -39,7 +41,8 @@ export default {
   },
   components: { 
     upcase,
-    SecondsOfCode
+    SecondsOfCode,
+    Algorithm
   },
   directives: {
     // 添加局部指令的方式
@@ -130,6 +133,21 @@ export default {
     this.inputAction = this.requestDebounce(this.sendRequest, 1000)
     this.inputAction2 = this.requestThrottle(this.sendRequest, 1000)
     console.log('created', this.$refs.testBg)
+
+    setTimeout(() => {
+      console.log('宏任务1')
+       Promise.resolve().then(() => {
+        console.log('微任务3')
+      })
+    }, 0)
+    setTimeout(() => {
+      console.log('宏任务2')
+    }, 0)
+    Promise.resolve().then(() => {
+      console.log('微任务1')
+    }).then(() => {
+      console.log('微任务2')
+    })
   },
   mounted () {
     // render function执行好， mounted生命周期函数被调用，但是页面并没有展示出来还
