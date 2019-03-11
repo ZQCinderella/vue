@@ -1,6 +1,6 @@
 # vue-learn
 
-## Build Setup
+## 构建步骤
 
 ``` bash
 # 安装依赖项
