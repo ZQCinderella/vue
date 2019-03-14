@@ -7,7 +7,7 @@
     <div class="test-bg" ref="testBg"></div>
     <input v-focus placeholder="这是一个自动聚焦的input" v-model="demoMsg"/>
     <div v-demo="demoMsg"></div>
-    <upcase></upcase>
+    <upcase v-model="demoMsg"></upcase>
     <!-- <SecondsOfCode></SecondsOfCode> -->
     <Algorithm></Algorithm>
     <audio :src="audioSrc" controls="controls" preload="load" id="audioDom"></audio>
@@ -25,7 +25,7 @@ export default {
   data () {
     return {
       demoMsg: 'before',
-      audioSrc
+      audioSrc,
     }
   },
   watch: {

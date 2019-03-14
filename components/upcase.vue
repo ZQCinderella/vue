@@ -1,8 +1,28 @@
 <template>
-  <div>{{ 'name' | capitalize }}</div>
+  <div @click="handleClick">{{ word | capitalize }}</div>
 </template>
 <script>
   export default {
+    // 对组件使用自定义指令时，需要在组件内部声明props和event, 然后通过$emit触发event，讲值映射到props上 然后组件使用部分的v-model的值也会修改，可以使用watch检测
+    props: ['word'],
+    model: {
+      prop: 'word',
+      event: 'change'
+    },
+    methods: {
+      handleClick() {
+        this.$emit('change', `fet-${Math.floor(Math.random() * 10)}`)
+        console.log(this.word)  // 现在获取的还是未更新的word
+        this.$nextTick(function () {
+          console.log('----', this.word)
+        })
+      }
+    },
+    watch: {
+      'word': function (val) {
+        console.log(val)
+      }
+    },
     // 使用指令
     filters: {
       capitalize: function (value) {
