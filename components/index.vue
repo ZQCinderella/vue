@@ -7,7 +7,9 @@
     <div class="test-bg" ref="testBg"></div>
     <input v-focus placeholder="这是一个自动聚焦的input" v-model="demoMsg"/>
     <div v-demo="demoMsg"></div>
-    <upcase v-model="demoMsg"></upcase>
+    <upcase @change="testChange" v-model="demoMsg"></upcase>
+    <upcase @change="testChange222" v-model="demoMsg"></upcase>
+
     <!-- <SecondsOfCode></SecondsOfCode> -->
     <Algorithm></Algorithm>
     <audio :src="audioSrc" controls="controls" preload="load" id="audioDom"></audio>
@@ -60,6 +62,12 @@ export default {
   methods: {
     sendRequest () {
       console.log('我正在发信息')
+    },
+    testChange() {
+      console.log('++++++++++++++++')
+    },
+    testChange222() {
+      console.log('00000000000000000')
     },
     // 去抖
     requestDebounce (method, delay) {
@@ -148,6 +156,7 @@ export default {
     }).then(() => {
       console.log('微任务2')
     })
+    console.log(this)
   },
   mounted () {
     // render function执行好， mounted生命周期函数被调用，但是页面并没有展示出来还

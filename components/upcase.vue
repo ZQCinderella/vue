@@ -17,6 +17,7 @@
     methods: {
       handleClick() {
         // 不能直接修改props的值 如 this.word = `fet-${Math.floor(Math.random() * 10)}`. 但可以使用计算属性去代替word
+        // 如果组件绑定了自定义事件，也会加入到事件队列先行执行
         this.$emit('change', `fet-${Math.floor(Math.random() * 10)}`)
         console.log(this.word)  // 现在获取的还是未更新的word
         this.$nextTick(function () {
