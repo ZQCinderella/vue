@@ -9,8 +9,14 @@
       prop: 'word',
       event: 'change'
     },
+    computed: {
+      upcaseWord: function () {
+        return this.word
+      }
+    },
     methods: {
       handleClick() {
+        // 不能直接修改props的值 如 this.word = `fet-${Math.floor(Math.random() * 10)}`. 但可以使用计算属性去代替word
         this.$emit('change', `fet-${Math.floor(Math.random() * 10)}`)
         console.log(this.word)  // 现在获取的还是未更新的word
         this.$nextTick(function () {
@@ -21,6 +27,7 @@
     watch: {
       'word': function (val) {
         console.log(val)
+        console.log('watch: ', this.upcaseWord) // 当word改变时，计算实现也会改变
       }
     },
     // 使用指令
