@@ -13,6 +13,7 @@
     <!-- <SecondsOfCode></SecondsOfCode> -->
     <Algorithm></Algorithm>
     <audio :src="audioSrc" controls="controls" preload="load" id="audioDom"></audio>
+    <vmodel></vmodel>
   </div>
 </template>
 <script>
@@ -21,6 +22,7 @@ import { mapState, mapGetters } from 'vuex'
 import upcase from './upcase'
 import SecondsOfCode from './30SecondsOfCode'
 import Algorithm from './Algorithm'
+import vmodel from './vmodel'
 console.log('mp3', audioSrc)
 export default {
   name: 'app',
@@ -44,7 +46,8 @@ export default {
   components: { 
     upcase,
     SecondsOfCode,
-    Algorithm
+    Algorithm,
+    vmodel
   },
   directives: {
     // 添加局部指令的方式
