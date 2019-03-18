@@ -37,9 +37,6 @@ export default {
     'demoMsg': function (val, oldValue) {
       // this.inputAction()
       this.inputAction2()
-    },
-    'route': function (from, to) {
-      console.log('router from to:', from, to)
     }
   },
   computed: {

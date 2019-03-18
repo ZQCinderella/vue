@@ -106,6 +106,9 @@ export default {
     watch: {
         'vforSelected': function () {
             console.log(this.vforSelected.value)
+        },
+        '$route': function (to, from) {
+            console.log('router from to:', from, to)
         }
     },
     created() {

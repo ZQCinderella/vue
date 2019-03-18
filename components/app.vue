@@ -2,6 +2,8 @@
 <div>
     welcome to vue
     <keep-alive>
+        <!-- 路由出口 -->
+        <!-- 路由匹配的组件将被渲染到这里 -->
         <router-view></router-view>
     </keep-alive>
 </div>
