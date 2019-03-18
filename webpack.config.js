@@ -14,7 +14,7 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),   // 线上可以更换目录
     filename: '[name].js',
     chunkFilename: '[id].chunk.js',
-    publicPath: './'
+    publicPath: '/'
   },
   module: {
     rules: [

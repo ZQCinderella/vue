@@ -13,7 +13,8 @@
     <!-- <SecondsOfCode></SecondsOfCode> -->
     <Algorithm></Algorithm>
     <audio :src="audioSrc" controls="controls" preload="load" id="audioDom"></audio>
-    <vmodel></vmodel>
+    <!-- <vmodel></vmodel> -->
+    <router-link to="/vmodel">go to vmodel</router-link>
   </div>
 </template>
 <script>
@@ -25,7 +26,7 @@ import Algorithm from './Algorithm'
 import vmodel from './vmodel'
 console.log('mp3', audioSrc)
 export default {
-  name: 'app',
+  name: 'index',
   data () {
     return {
       demoMsg: 'before',
@@ -36,6 +37,9 @@ export default {
     'demoMsg': function (val, oldValue) {
       // this.inputAction()
       this.inputAction2()
+    },
+    'route': function (from, to) {
+      console.log('router from to:', from, to)
     }
   },
   computed: {

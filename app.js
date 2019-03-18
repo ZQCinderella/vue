@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Router from 'vue-router'
+import router from './router/index.js'
 import store from './store/index.js'
 import 'babel-polyfill'
-import App from '@/components/index.vue'
+import App from '@/components/app.vue'
 
 // 全局定义指令
 Vue.directive('focus', {
@@ -13,11 +13,14 @@ Vue.directive('focus', {
   }
 })
 
+console.log('--------', router)
+
 new Vue({
-  el: '#app',
+  // el: '#app',
   store,
-  render: h => h(App)
-})
+  render: h => h(App),
+  router
+}).$mount('#app')
 console.log('config', Vue.config)
 // 通过visibilityChange事件，控制页面内的内容播放和暂停
 

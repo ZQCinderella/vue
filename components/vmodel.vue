@@ -78,6 +78,7 @@
 
 <script>
 export default {
+    name: 'vmodel',
     data() {
         return {
             message: '',
@@ -108,12 +109,12 @@ export default {
         }
     },
     created() {
-        console.log(this)
+        console.log('router', this.$route.query)
     }
 }
 </script>
 
-<style>
+<style lang="scss">
     * {
         margin: 0;
         padding: 0;
