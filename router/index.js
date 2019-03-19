@@ -9,12 +9,25 @@ export default new VueRouter({
         {
             path: '/',
             name: 'index',
-            component: resolve => require(['../components/index.vue'], resolve)
+            component: resolve => require(['../components/index.vue'], resolve),
         },
         {
             path: '/vmodel',
             name: 'vmodel',
-            component: resolve => require(['../components/vmodel.vue'], resolve)
+            component: resolve => require(['../components/vmodel.vue'], resolve),
+            children: [
+                { path: 'upcase', name: 'upcase', component: resolve => require(['../components/upcase.vue'], resolve)}
+            ]
+        },
+        {
+            path: '/dynamic/:num',
+            name: 'dynamic',
+            component: resolve => require(['../components/dynamic.vue'], resolve)
+        },
+        {
+            // 使用通配符匹配路由
+            path: '/test*',
+            component: resolve => require(['../components/test.vue'], resolve)
         }
     ]
 })

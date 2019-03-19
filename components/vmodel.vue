@@ -73,6 +73,13 @@
             <input type="text" name="" id="" v-model.lazy.number.trim="lazyValue">
             <span>vmodel.lazy在change事件时触发: {{ lazyValue }}</span>
         </div>
+        <router-link to="/vmodel/upcase">upcase</router-link>
+        <router-link to="/dynamic/1">go to dynamic</router-link>
+        <div @click="goDynamicComponent">点击我也可以去dynamic component</div>
+        <keep-alive>
+            <!-- 嵌套路由 -->
+            <router-view></router-view>
+        </keep-alive>
     </div>
 </template>
 
@@ -111,9 +118,21 @@ export default {
             console.log('router from to:', from, to)
         }
     },
+    methods: {
+        goDynamicComponent() {
+            // 如果提供了path， 那么params会被忽略，如果想使用params，需要手动书写完整路由 /dynamic/2
+            // this.$router.push({path: '/dynamic', params: {num: 2}})
+            this.$router.push({name: 'dynamic', params: {num: 2}})
+        }
+    },
     created() {
-        console.log('router', this.$route.query)
-    }
+        console.log(this.$route) // 指当前路由，包括path, query, params等
+        console.log(this.$router) // 指路由器，这个就是为了避免在每个组件内部都import进来router对象，所以通过new Vue({router})挂在了实例上
+    },
+    activated() {
+        // 当组件被keep-alive包裹时， 再次展示该组件时会触发该方法
+        console.log('params', this.$route.params)
+    },
 }
 </script>
 

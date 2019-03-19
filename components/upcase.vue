@@ -1,5 +1,8 @@
 <template>
-  <div @click="handleClick">{{ word | capitalize }}</div>
+  <div>
+    welcome to uopcase
+    <div @click="handleClick">{{ word | capitalize }}</div>
+  </div>
 </template>
 <script>
   export default {

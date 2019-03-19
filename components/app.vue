@@ -1,6 +1,7 @@
 <template>
 <div>
-    welcome to vue
+    <h1>welcome to vue</h1>
+    <br>
     <keep-alive>
         <!-- 路由出口 -->
         <!-- 路由匹配的组件将被渲染到这里 -->
@@ -11,7 +12,7 @@
 
 <script>
 export default {
-
+   
 }
 </script>
 
