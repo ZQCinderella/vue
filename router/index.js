@@ -3,7 +3,13 @@ import VueRouter from 'vue-router'
 import { resolve } from 'path';
 Vue.use(VueRouter)
 export default new VueRouter({
-    // mode: 'history',
+    mode: 'history', // history模式url会比较好看，：3000/index/...  但是如果匹配不到对应的路由时，页面会白屏，需要后台去对所有情况进行覆盖。 而不使用history模式的话，：3000/#/index/..., 当有匹配不到的路由时，会定位到首页
+    /**
+     * 例如nginx配置 
+     * location / {
+     *    try_files $uri $uri/ /index.html;
+     * }
+     */
     // base: __dirname,
     routes: [
         {
