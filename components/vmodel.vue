@@ -75,6 +75,7 @@
         </div>
         <router-link to="/vmodel/upcase">upcase</router-link>
         <router-link to="/dynamic/1">go to dynamic</router-link>
+        <router-link to="/transition">go to transition</router-link>
         <div @click="goDynamicComponent">点击我也可以去dynamic component</div>
         <keep-alive>
             <!-- 嵌套路由 -->
@@ -107,7 +108,8 @@ export default {
                     text: 'three', value: 'C'
                 }
             ],
-            lazyValue: ''
+            lazyValue: '',
+            showTran: false
         }
     },
     watch: {
@@ -123,6 +125,9 @@ export default {
             // 如果提供了path， 那么params会被忽略，如果想使用params，需要手动书写完整路由 /dynamic/2
             // this.$router.push({path: '/dynamic', params: {num: 2}})
             this.$router.push({name: 'dynamic', params: {num: 2}})
+        },
+        showBtn() {
+            this.showTran = !this.showTran
         }
     },
     created() {
@@ -141,4 +146,5 @@ export default {
         margin: 0;
         padding: 0;
     }
+    
 </style>

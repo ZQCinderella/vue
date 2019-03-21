@@ -76,3 +76,29 @@ export const deepCopy = (obj) => {
     }
     return newObj
 }
+export const baseRandom = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
+export const copyArray = (source, array) => {
+    let index = -1,
+        length = source.length;
+    
+    array || (array = Array(length))
+    while (++index < length) {
+        array[index] = source[index]
+    }
+    return array
+}
+export const shuffle = (arr) => {
+    let index = -1,
+        length = arr.length,
+        lastIndex = length - 1,
+        clonedArr = copyArray(arr);
+    while(++index < length) {
+        let rand = baseRandom(index, lastIndex),
+            value = clonedArr[rand];
+        clonedArr[rand] = clonedArr[index];
+        clonedArr[index] = value;
+    }
+    return clonedArr
+}
