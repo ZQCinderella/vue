@@ -60,11 +60,32 @@
             </transition-group>
         </div>
         <div id="app6">
-            <button @click="shuffle">shuffle</button>
+            <button @click="shuffle('items')">shuffle</button>
             <button @click="add">add</button>
             <button @click="remove">remove</button>
             <transition-group name="flip-list" tag="ul" class="p-list">
                 <li v-for="i in items" :key="i">
+                    {{i}}
+                </li>
+            </transition-group>
+        </div>
+        <div id="app7">
+            <button @click="shuffle('multArray')">shuffle</button>
+            <transition-group name="mult-list" tag="div" class="div-list">
+                <div class="ceil" v-for="i in multArray" :key="i">
+                    {{i+1}}
+                </div>
+            </transition-group>
+        </div>
+        <div id="app8">
+            <input type="text" v-model="currentUser">
+            <transition-group name="user-list" tag="ul" class="user-list"
+                @before-enter="beforeEnter"
+                @enter="enter"
+                @leave="leave">
+                <li v-for="(i, index) in computedUser" 
+                    :key="i"
+                    :data-index="index">
                     {{i}}
                 </li>
             </transition-group>
@@ -88,7 +109,17 @@ export default {
             on: true,
             view: 'c-a',
             items: [1,2,3,4,5,6,7,8,9],
-            nextNum: 10
+            nextNum: 10,
+            multArray: [],
+            userArr:['Bruce Lee', 'Jackie Chan', 'Bruce Chen', 'Chuck Norris', 'Jet Li', 'Kung Fury'],
+            currentUser: ''
+        }
+    },
+    computed: {
+        computedUser () {
+            return this.userArr.filter((item) => {
+                return item.toLowerCase().indexOf(this.currentUser.toLowerCase()) !== -1
+            })
         }
     },
     components: {
@@ -111,11 +142,42 @@ export default {
         remove() {
             this.items.splice(this.randomIndex(), 1)
         },
-        shuffle() {
-            this.items = shuffle(this.items)
+        shuffle(key) {
+            this[key] = shuffle(this[key])
             console.log(this.items)
+        },
+        generateArr() {
+            // 生成随机数据
+            let array = Array.from(Array(81).keys())
+            // let array = Array.from({length: 100}, (val, index) => index);
+            // 打乱顺序
+            this.multArray = shuffle(array)
+            console.log(this.multArray)
+        },
+        beforeEnter (el) {
+            el.style.opacity = 0;
+            el.style.height = 0;
+        },
+        enter (el) {
+            let delay = el.dataset.index * 100;
+            setTimeout(() => {
+                el.style.opacity = 1;
+                el.style.height = '1.6em';
+                el.style.transition = 'all 1s'
+            }, delay)
+        },
+        leave (el) {
+            let delay = el.dataset.index * 100;
+            setTimeout(() => {
+                el.style.opacity = 0;
+                el.style.height = 0;
+                el.style.transition = 'all 1s'
+            }, delay)
         }
     },
+    created() {
+        this.generateArr()
+    }
 }
 </script>
 
@@ -244,5 +306,34 @@ export default {
 }
 .flip-list-move{
     transition: transform 1s;
+}
+.flip-list-leave-active{
+    position: absolute;
+}
+
+
+// 81方格
+.div-list {
+    width: 238px;
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    .ceil {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 25px;
+        height: 25px;
+        border: 1px solid #aaa;
+        margin-right: -1px;
+        margin-bottom: -1px;
+    }
+    .mult-list-enter-active, .mult-list-leave-active{
+        transition: all 1s;
+    }
+    // v-move 对于设置过渡的切换时机和过渡曲线非常有用，它会在元素的改变定位的过程中应用
+    .mult-list-move{
+        transition: transform 1s;
+    }
 }
 </style>
