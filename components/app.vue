@@ -12,7 +12,10 @@
 
 <script>
 export default {
-   
+    testOptions: {age: 10},    // 可通过this.$options.testOptions访问
+    created() {
+        console.log(this)
+    }
 }
 </script>
 

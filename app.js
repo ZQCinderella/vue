@@ -15,13 +15,14 @@ Vue.directive('focus', {
 
 console.log('--------', router)
 
-new Vue({
+const inst = new Vue({
   // el: '#app',
   store,
+  testProp: {name: 'fet'},   // 所有写在vue构造函数里的内容，都会被放到$options中
   render: h => h(App),
   router
 }).$mount('#app')
-console.log('config', Vue.config)
+console.log('config', inst.$options.testProp)
 // 通过visibilityChange事件，控制页面内的内容播放和暂停
 
 
