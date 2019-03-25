@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="vmodel">
         <h2>learn about v-model</h2>
 
         <!-- 文本 -->
@@ -131,6 +131,7 @@ export default {
         }
     },
     created() {
+        console.log(this)
         console.log(this.$route) // 指当前路由，包括path, query, params等
         console.log(this.$router) // 指路由器，这个就是为了避免在每个组件内部都import进来router对象，所以通过new Vue({router})挂在了实例上
     },

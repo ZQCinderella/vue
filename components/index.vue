@@ -27,6 +27,7 @@ import vmodel from './vmodel'
 console.log('mp3', audioSrc)
 export default {
   name: 'index',
+  // vue组件的data必须是一个函数，返回一个对象， 因为一个组件可能被用来创建多个实例，如果data是一个纯粹的对象，那么所有的实例就会共享引用同一个数据对象
   data () {
     return {
       demoMsg: 'before',
@@ -163,16 +164,6 @@ export default {
     console.log(this)
   },
   mounted () {
-    this.$modal({
-      title:'test',
-      confirmCb: (resolve) => {
-        setTimeout(() => {
-          resolve('1111111')
-        }, 1000)
-      }
-    }).then(data => {
-      alert(data)
-    })
     // render function执行好， mounted生命周期函数被调用，但是页面并没有展示出来还
     this.listenVisibility()
     setTimeout(function () {
