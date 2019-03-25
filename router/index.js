@@ -21,7 +21,7 @@ export default new VueRouter({
             name: 'vmodel',
             component: resolve => require(['../components/vmodel.vue'], resolve),
             children: [
-                { path: 'upcase', name: 'upcase', component: resolve => require(['../components/upcase.vue'], resolve)}
+                { path: 'upcase', name: 'upcase', component: resolve => require(['../components/upcase.vue'], resolve), meta: { keepAlive: true }}
             ],
             meta: {
                 title: '这是model',

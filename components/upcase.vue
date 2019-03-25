@@ -2,10 +2,17 @@
   <div>
     welcome to uopcase
     <div @click="handleClick">{{ word | capitalize }}</div>
+    <div>使用全局过滤器{{ globalFilter | uppercase }}</div>
+    <div>多参数的全局过滤器{{ 10 | prefix('$') }}</div>
   </div>
 </template>
 <script>
   export default {
+    data() {
+      return {
+        globalFilter: 'globalFilter'
+      }
+    },
     // 对组件使用自定义指令时，需要在组件内部声明props和event, 然后通过$emit触发event，讲值映射到props上 然后组件使用部分的v-model的值也会修改，可以使用watch检测
     props: ['word'],
     model: {

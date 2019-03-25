@@ -163,6 +163,16 @@ export default {
     console.log(this)
   },
   mounted () {
+    this.$modal({
+      title:'test',
+      confirmCb: (resolve) => {
+        setTimeout(() => {
+          resolve('1111111')
+        }, 1000)
+      }
+    }).then(data => {
+      alert(data)
+    })
     // render function执行好， mounted生命周期函数被调用，但是页面并没有展示出来还
     this.listenVisibility()
     setTimeout(function () {
