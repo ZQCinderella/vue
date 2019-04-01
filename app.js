@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import router from './router/index.js'
 import store from './store/index.js'
 import 'babel-polyfill'
-import App from '@/components/app.vue'
+import App from './App.vue'
 import Modal from './plugin/modal'
 
 Vue.use(Modal)

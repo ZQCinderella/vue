@@ -1,0 +1,53 @@
+{
+    "compilerOptions": {
+      "allowSyntheticDefaultImports": true,
+      "noFallthroughCasesInSwitch": true,
+      "strictPropertyInitialization": false,
+      "noUnusedParameters": true,
+      "noImplicitReturns": true,
+      "esModuleInterop": true,
+      "noUnusedLocals": true,
+      "noImplicitAny": true,
+      "declaration": false,
+      "outDir": "dist",
+      "target": "es5",
+      "module": "esnext",
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"]
+  //      "@config/*": ["config/*"],
+  //      "@config": ["config"],
+  //      "@routers/*": ["routers/*"],
+  //      "@services/*": ["services/*"],
+  //      "@stores/*": ["stores/*"],
+  //      "@type/*": ["type/*"],
+  //      "@utils/*": ["utils/*"],
+  //      "@views/*": ["views/*"],
+  //      "@assets/*": ["assets/*"],
+  //      "@constants/*": ["constants/*"],
+  //      "@mock/*": ["mock/*"],
+  //      "@common/*": ["common/*"],
+  //      "@filters/*": ["filters/*"],
+  //      "@components/*": ["components/*"]
+      },
+      "experimentalDecorators": true,
+      "strict": true,
+      "moduleResolution": "node",
+      "lib": [
+        "dom",
+        "es2015",
+        "es2016",
+        "es2017",
+        "es2018"
+      ]
+    },
+    "include": [
+      "view/**/*.vue",
+      "components/**/*.vue"
+    ],
+    "exclude": [
+      "node_modules",
+      "dist",
+    ]
+  }
+  

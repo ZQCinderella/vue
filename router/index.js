@@ -45,6 +45,14 @@ export default new VueRouter({
         {
             path: '/transition',
             component: resolve => require(['../components/transition.vue'], resolve)
+        },
+        {
+            path: '/fatherOfVueclass',
+            component: resolve => require(['../view/FatherOfVueClassCom.vue'], resolve)
+        },
+        {
+            path: '/vueclass',
+            component: resolve => require(['../view/VueClassComponent.vue'], resolve)
         }
     ]
 })
