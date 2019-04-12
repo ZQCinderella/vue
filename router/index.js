@@ -54,5 +54,14 @@ export default new VueRouter({
             path: '/vueclass',
             component: resolve => require(['../view/VueClassComponent.vue'], resolve)
         }
-    ]
+    ],
+    scrollBehavior: (to, from, savedPosition) => {
+        console.log("scroll to:", to)
+        if (to.path === '/vmodel') {
+            return { y: 1000 }
+        }
+        return {
+            y: 0
+        }
+    }
 })

@@ -81,6 +81,80 @@
             <!-- 嵌套路由 -->
             <router-view></router-view>
         </keep-alive>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
+        <div>为了增加页面高度</div>
     </div>
 </template>
 
@@ -124,7 +198,7 @@ export default {
         goDynamicComponent() {
             // 如果提供了path， 那么params会被忽略，如果想使用params，需要手动书写完整路由 /dynamic/2
             // this.$router.push({path: '/dynamic', params: {num: 2}})
-            this.$router.push({name: 'dynamic', params: {num: 2}})
+            this.$router.replace({name: 'dynamic', params: {num: 2}, query: this.$route.query})
         },
         showBtn() {
             this.showTran = !this.showTran
