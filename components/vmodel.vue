@@ -87,6 +87,7 @@
         <div>为了增加页面高度</div>
         <div>为了增加页面高度</div>
         <div>为了增加页面高度</div>
+        <a href="#" name="test">测试scrollBehavior的hash滚动</a>
         <div>为了增加页面高度</div>
         <div>为了增加页面高度</div>
         <div>为了增加页面高度</div>

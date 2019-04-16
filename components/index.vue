@@ -14,7 +14,7 @@
     <Algorithm></Algorithm>
     <audio :src="audioSrc" controls="controls" preload="load" id="audioDom"></audio>
     <!-- <vmodel></vmodel> -->
-    <router-link to="/vmodel">go to vmodel</router-link>
+    <router-link to="/vmodel#test">go to vmodel</router-link>
   </div>
 </template>
 <script>
@@ -172,6 +172,16 @@ export default {
     document.addEventListener('testCreateEvent', function () {
       console.log('It\'s work')
     })
+    if (!Array.prototype.map) {
+        Array.prototype.map = function (cb) {
+          // this === arr
+          return this.reduce(function(acc, curr, currIndex, sourceArr) {
+             acc.push(cb(curr, currIndex, sourceArr))
+             return acc
+          }, [])
+        }
+      }
+      console.log([1,2,3].map((item) => item*2))
   }
 }
 </script>
